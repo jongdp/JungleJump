@@ -9,7 +9,6 @@ public class ScoreKeeper : MonoBehaviour
     public static ScoreKeeper sk;
     private static float score;
     private static Text scoreText;
-
     public AudioClip scoreSound;
     private AudioSource audioSource;
 
@@ -23,6 +22,10 @@ public class ScoreKeeper : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="points"></param>
     public static void AddToScore(float points)
     {
         score += points;

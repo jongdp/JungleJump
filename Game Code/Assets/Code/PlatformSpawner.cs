@@ -50,6 +50,7 @@ public class Spawner : MonoBehaviour
 
     }
 
+
     public Vector3 randomLocation()
     {
         var val = Random.Range(-4, 2);

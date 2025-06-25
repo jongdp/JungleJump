@@ -16,11 +16,24 @@ public class Banana : MonoBehaviour
         
     }
 
+
+
+    /// <summary>
+    /// Destroys objects that have left the screen via a platform
+    /// Note: This function is part of the MonoBehavior class from the Unity
+    /// Engine
+    /// </summary>
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Detects whether the collision with the banana gameobject was caused by
+    /// the main character tagged "monkey" and increments the score.
+    /// </summary>
+    /// <param name="collision"> This is an instance of the Collision2D class
+    /// provided by Unity </param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("monkey"))
