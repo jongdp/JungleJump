@@ -4,22 +4,8 @@ using UnityEngine;
 
 public class Banana : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-
-    /// <summary>
-    /// Destroys objects that have left the screen via a platform
+    ///// <summary>
+    /// Destroys objects that have left the screen.
     /// Note: This function is part of the MonoBehavior class from the Unity
     /// Engine
     /// </summary>
@@ -29,11 +15,11 @@ public class Banana : MonoBehaviour
     }
 
     /// <summary>
-    /// Detects whether the collision with the banana gameobject was caused by
-    /// the main character tagged "monkey" and increments the score.
+    /// Unity callback called automatically when the GameObject is no longer visible by any camera.
+    /// If the collider belongs to a GameObject tagged as "monkey", this object is destroyed
+    /// and the player's score is increased by 1.
     /// </summary>
-    /// <param name="collision"> This is an instance of the Collision2D class
-    /// provided by Unity </param>
+    /// <param name="collision">Collision information provided by Unity.</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("monkey"))

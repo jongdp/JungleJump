@@ -21,6 +21,10 @@ public class platform : MonoBehaviour
         rigidBodyPlatform.velocity = newVelocity;
     }
 
+    /// <summary>
+    /// Unity callback called automatically when the GameObject is no longer visible by any camera.
+    /// Destroys the platforms when they leave the screen
+    /// </summary>
     private void OnBecameInvisible()
     {
         Destroy(gameObject);

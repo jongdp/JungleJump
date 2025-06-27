@@ -25,6 +25,12 @@ public class Monkey : MonoBehaviour
         MaybeJump();
     }
 
+    /// <summary>
+    /// Reads player input and applies horizontal movement to the Rigidbody2D.
+    /// Normalizes the input vector to ensure consistent speed in all directions,
+    /// then sets the velocity based on the horizontal input and a movement speed multiplier.
+    /// Vertical velocity is preserved to avoid interfering with jumping or gravity.
+    /// </summary>
     private void Maneuver()
     {
         var direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -32,6 +38,10 @@ public class Monkey : MonoBehaviour
         rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
     }
 
+    /// <summary>
+    /// Checks whether the player is allowed to jump (e.g., pressing jump input and grounded).
+    /// If conditions are met, triggers the actual jump logic.
+    /// </summary>
     private void MaybeJump()
     {
         if ((Input.GetAxis("Jump") == 1) && IsGrounded())
@@ -40,6 +50,10 @@ public class Monkey : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Applies upward force to simulate a jump, resets vertical velocity,
+    /// and plays a jump sound. Assumes jump conditions have already been validated.
+    /// </summary>
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, 0f);
@@ -47,11 +61,22 @@ public class Monkey : MonoBehaviour
         audioSource.PlayOneShot(jumpSound);
     }
 
+
+    /// <summary>
+    /// Returns whether the player character is currently grounded.
+    /// Grounded status is used to determine if jumping is allowed.
+    /// </summary>
+    /// <returns>True if the player is on a platform; false otherwise.</returns>
     private bool IsGrounded()
     {
         return grounded;
     }
 
+    /// <summary>
+    /// Unity callback that is triggered when this GameObject starts colliding with another 2D collider.
+    /// Sets the grounded flag to true when colliding with the "platform" GameObject.
+    /// </summary>
+    /// <param name="collision">Collision information provided by Unity.</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("platform"))
@@ -60,6 +85,11 @@ public class Monkey : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Unity callback that is triggered when this GameObject stops colliding with another 2D collider.
+    /// Sets the grounded flag to false when leaving a "platform" GameObject.
+    /// </summary>
+    /// <param name="collision">Collision information provided by Unity.</param>
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("platform"))
@@ -68,6 +98,11 @@ public class Monkey : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Unity callback called automatically when the GameObject is no longer visible by any camera.
+    /// Checks whether the object has fallen too far off-screen (horizontally or vertically),
+    /// and if so, ends the game and destroys the player GameObject.
+    /// </summary>
     private void OnBecameInvisible()
     {
         var y = transform.position.y;

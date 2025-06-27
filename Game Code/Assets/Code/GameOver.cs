@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    public static GameOver gameOver;
-    public GameObject text;
+    public static GameOver gameOver; // Static instance of the GameOver class for global access.
+    public GameObject text; // UI GameObject that displays the "Game Over" text on screen.
     public AudioClip gameOverSound;
-    private AudioSource audioSource;
+    private AudioSource audioSource; 
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +21,8 @@ public class GameOver : MonoBehaviour
     /// <summary>
     /// Static function wrapper that internally calls gameOver.EndGameInternal()
     /// to actually end the game.
-    /// Note: Allows the function to get called globally and not for a
-    /// particular instance of a GameOver object which goes against the design
+    /// Note: Allows the function to get called globally (i.e., does not require
+    /// an instance of an object to call the EndGame() function).
     /// (i.e., this implementation) of the game.
     /// </summary>
     public static void EndGame()
@@ -31,20 +31,12 @@ public class GameOver : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Activates the "Game Over" text and plays a sound indicating that the
+    /// player has lost.
     /// </summary>
     public void EndGameInternal()
     {
         text.SetActive(true);
         audioSource.PlayOneShot(gameOverSound);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns>  </returns>
-    public static bool isGameOver()
-    {
-        return gameOver.text.activeInHierarchy;
     }
 }

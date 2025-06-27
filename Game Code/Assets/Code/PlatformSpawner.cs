@@ -18,24 +18,30 @@ public class Spawner : MonoBehaviour
     public float SpawnInterval = 1.5f;
 
     /// <summary>
-    /// Gives the next time interval of when an enemy should spawn
+    /// The next time at which spawning is allowed, based on Unity's Time.time.
     /// </summary>
     public float NextSpawn = 0;
 
     /// <summary>
-    /// Gives the next time interval of when an enemy should spawn
+    /// Stores the latest randomly generated spawn location.
+    /// Primarily used for platform positioning.
     /// </summary>
     public Vector3 randLoc;
 
-    // Update is called once per frame
+    /// <summary>
+    /// Unity's update loop, called once per frame.
+    /// Checks whether it's time to spawn a new platform (and maybe a banana),
+    /// then instantiates objects with randomized properties and movement.
+    /// Note: Used Vector3 because Unity expexcts a Vector3 when instantiating.
+    /// </summary>
     void Update()
     {
         if (Time.time >= NextSpawn)
         {
             var platformLoc = randomLocation();
             var bananaLoc = platformLoc;
-            var y = platformLoc.y +0.5f;
-            bananaLoc.y = y;
+            var bananay = platformLoc.y +0.5f;
+            bananaLoc.y = bananay;
 
             var platform = Instantiate(randomPlatform(), platformLoc, Quaternion.identity);
             platform.GetComponent<Rigidbody2D>().velocity = new Vector2(-5, 0);
@@ -50,7 +56,11 @@ public class Spawner : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Generates a random vertical spawn position for the next platform,
+    /// while keeping the horizontal (X) position constant off-screen to the right.
+    /// </summary>
+    /// <returns>A Vector3 representing the spawn location.</returns>
     public Vector3 randomLocation()
     {
         var val = Random.Range(-4, 2);
@@ -58,6 +68,10 @@ public class Spawner : MonoBehaviour
         return randLoc;
     }
 
+    /// <summary>
+    /// Randomly selects one of the two platform prefabs to instantiate.
+    /// </summary>
+    /// <returns>A GameObject representing the selected platform prefab.</returns>
     public GameObject randomPlatform()
     {
         int val = Random.Range(0,2);
@@ -66,6 +80,11 @@ public class Spawner : MonoBehaviour
         return platform2Prefab;
     }
 
+    /// <summary>
+    /// Randomly determines whether to spawn a banana on this spawn cycle.
+    /// Used to introduce variation and scarcity in collectibles.
+    /// </summary>
+    /// <returns>True if a banana should be spawned; false otherwise.</returns>
     public bool spawnBanana()
     {
         int val = Random.Range(0, 2);

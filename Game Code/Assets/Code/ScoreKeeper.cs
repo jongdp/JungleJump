@@ -12,7 +12,11 @@ public class ScoreKeeper : MonoBehaviour
     public AudioClip scoreSound;
     private AudioSource audioSource;
 
-    // Use this for initialization
+    /// <summary>
+    /// Unity's Start method, called on initialization.
+    /// Initializes references to Text and AudioSource components,
+    /// updates the score display, and sets the singleton instance.
+    /// </summary>
     internal void Start()
     {
         scoreText = GetComponent<Text>();
@@ -23,9 +27,10 @@ public class ScoreKeeper : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Adds points to the score, updates the displayed text,
+    /// and plays the score increment sound.
     /// </summary>
-    /// <param name="points"></param>
+    /// <param name="points">Amount of points to add.</param>
     public static void AddToScore(float points)
     {
         score += points;
@@ -33,12 +38,18 @@ public class ScoreKeeper : MonoBehaviour
         sk.playSound();
     }
 
+    /// <summary>
+    /// Plays the assigned score sound once using the AudioSource.
+    /// </summary>
     public void playSound()
     {
         audioSource.PlayOneShot(scoreSound);
 
     }
 
+    /// <summary>
+    /// Updates the UI text element to show the current score.
+    /// </summary>
     private static void UpdateText()
     {
         scoreText.text = String.Format("Score: {0}", score);
