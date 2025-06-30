@@ -572,7 +572,9 @@ MonoBehaviour:
   platform2Prefab: {fileID: 6601433147168929336, guid: 704827332e066452ba3c899b34ffdbe7, type: 3}
   bananaPrefab: {fileID: 5102138301006547975, guid: 65c9c5edc7e46453f9d634da4a13a14d, type: 3}
   SpawnInterval: 1
+  BananaInterval: 1.5
   NextSpawn: 0
+  BananaSpawn: 0
   randLoc: {x: 0, y: 0, z: 0}
 --- !u!4 &744506669
 Transform:

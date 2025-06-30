@@ -18,9 +18,20 @@ public class Spawner : MonoBehaviour
     public float SpawnInterval = 1.5f;
 
     /// <summary>
+    /// Max time allowed for there not to be a banana (i.e., spawns a banana if
+    /// there has not been a banana that has spawned in this amount of time).
+    /// </summary>
+    public float BananaInterval = 1.5f;
+
+    /// <summary>
     /// The next time at which spawning is allowed, based on Unity's Time.time.
     /// </summary>
     public float NextSpawn = 0;
+
+    /// <summary>
+    /// The next time at which spawning a banana is recommended, based on Unity's Time.time.
+    /// </summary>
+    public float BananaSpawn = 0;
 
     /// <summary>
     /// Stores the latest randomly generated spawn location.
@@ -45,13 +56,15 @@ public class Spawner : MonoBehaviour
 
             var platform = Instantiate(randomPlatform(), platformLoc, Quaternion.identity);
             platform.GetComponent<Rigidbody2D>().velocity = new Vector2(-5, 0);
-            if (spawnBanana())
+            if (spawnBanana() || Time.time >= BananaSpawn)
             {
                 var banana = Instantiate(bananaPrefab, bananaLoc, Quaternion.identity);
                 banana.GetComponent<Rigidbody2D>().velocity = new Vector2(-7, 0);
+                BananaSpawn += BananaInterval;
             }
 
             NextSpawn += SpawnInterval;
+
         }
 
     }
@@ -87,7 +100,7 @@ public class Spawner : MonoBehaviour
     /// <returns>True if a banana should be spawned; false otherwise.</returns>
     public bool spawnBanana()
     {
-        int val = Random.Range(0, 2);
+        int val = Random.Range(0, 3);
         if (val == 1)
             return true;
         return false;
