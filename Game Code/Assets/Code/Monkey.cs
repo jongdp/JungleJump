@@ -7,7 +7,7 @@ public class Monkey : MonoBehaviour
     private Rigidbody2D rb;
     public float speed = 3f;
     public float jumpForce = 30f;
-    private bool grounded;
+    private int groundedContacts;
     public AudioClip jumpSound;
     private AudioSource audioSource;
 
@@ -69,7 +69,7 @@ public class Monkey : MonoBehaviour
     /// <returns>True if the player is on a platform; false otherwise.</returns>
     private bool IsGrounded()
     {
-        return grounded;
+        return groundedContacts > 0;
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class Monkey : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("platform"))
         {
-            grounded = true;
+            groundedContacts++;
         }
     }
 
@@ -94,7 +94,7 @@ public class Monkey : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("platform"))
         {
-            grounded = false;
+            groundedContacts--;
         }
     }
 
