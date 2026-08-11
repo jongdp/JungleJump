@@ -10,18 +10,19 @@ public class ScoreKeeper : MonoBehaviour
     private static float score;
     private static Text scoreText;
     public AudioClip scoreSound;
-    private AudioSource audioSource;
 
     /// <summary>
     /// Unity's Start method, called on initialization.
     /// Initializes references to Text and AudioSource components,
     /// updates the score display, and sets the singleton instance.
     /// </summary>
+    
+    // Start is called before the first frame update
     internal void Start()
     {
         scoreText = GetComponent<Text>();
+        score = 0;
         UpdateText();
-        audioSource = GetComponent<AudioSource>();
         ScoreKeeper.sk = FindObjectOfType<ScoreKeeper>();
 
     }
@@ -43,7 +44,7 @@ public class ScoreKeeper : MonoBehaviour
     /// </summary>
     public void playSound()
     {
-        audioSource.PlayOneShot(scoreSound);
+        AudioManager.instance.PlaySoundFXClip(scoreSound, transform, 1f);
 
     }
 

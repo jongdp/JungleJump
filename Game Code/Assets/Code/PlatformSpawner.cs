@@ -39,12 +39,24 @@ public class Spawner : MonoBehaviour
     /// </summary>
     public Vector3 randLoc;
 
+
+    /// <summary>
+    /// Sets the appropriate time intervals
+    /// </summary>
+    void Start()
+    {
+        NextSpawn = Time.time;
+        BananaSpawn = Time.time;
+    }
+
     /// <summary>
     /// Unity's update loop, called once per frame.
     /// Checks whether it's time to spawn a new platform (and maybe a banana),
     /// then instantiates objects with randomized properties and movement.
     /// Note: Used Vector3 because Unity expexcts a Vector3 when instantiating.
     /// </summary>
+
+    // Update is called once per frame
     void Update()
     {
         if (Time.time >= NextSpawn)

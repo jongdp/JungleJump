@@ -9,13 +9,11 @@ public class Monkey : MonoBehaviour
     public float jumpForce = 30f;
     private int groundedContacts;
     public AudioClip jumpSound;
-    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,7 +42,7 @@ public class Monkey : MonoBehaviour
     /// </summary>
     private void MaybeJump()
     {
-        if ((Input.GetAxis("Jump") == 1) && IsGrounded())
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
         }
@@ -58,7 +56,7 @@ public class Monkey : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        audioSource.PlayOneShot(jumpSound);
+        AudioManager.instance.PlaySoundFXClip(jumpSound, transform, 1f);
     }
 
 
@@ -107,9 +105,9 @@ public class Monkey : MonoBehaviour
     {
         var y = transform.position.y;
         var x = transform.position.x;
-        if (y < -5 || x < -9)
+        if (y < -5 || x < -9 || x > 9)
         {
-            GameOver.EndGame();
+            GameOverScreen.EndGame();
             Destroy(gameObject);
         }
     }

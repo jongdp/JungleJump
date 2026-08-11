@@ -11,6 +11,8 @@ public class scrolling : MonoBehaviour
     /// Unity's update method, called once per frame.
     /// Updates the texture offset based on speed and time to animate scrolling.
     /// </summary>
+    
+    // Update is called once per frame
     void Update()
     {
         bgrenderer.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
